@@ -22,12 +22,17 @@ object AdvancedMath {
     res
   }
 
+  /* Fibonacci */
+  private def fibonacci(a: BigInt, b: BigInt): Stream[BigInt] = (a + b) #:: fibonacci(a + b, a)
+
+  val fibonacci: Stream[BigInt] = BigInt(1) #:: BigInt(1) #:: fibonacci(BigInt(1), BigInt(1))
+
   /* Factorial */
 
   def factorial(n: BigInt): BigInt = factorial(n, 1)
 
   private def factorial(n: BigInt, acc: BigInt): BigInt =
-    if(n == 1) acc
+    if (n == 1) acc
     else factorial(n - 1, acc * n)
 
   /* Primes */
@@ -37,7 +42,7 @@ object AdvancedMath {
   private def isPrime(n: Long, previousPrimes: Set[Long]) = !previousPrimes.exists(p => n % p == 0)
 
   private def primes(from: BigInt, previousPrimes: Set[BigInt]): Stream[BigInt] =
-    if(isPrime(from, previousPrimes)) from #:: primes(from + 2, previousPrimes + from)
+    if (isPrime(from, previousPrimes)) from #:: primes(from + 2, previousPrimes + from)
     else primes(from + 2, previousPrimes)
 
   val primes: Stream[BigInt] = 2 #:: primes(3, Set(2))
@@ -53,9 +58,9 @@ object AdvancedMath {
   def factors(n: Long): Seq[Long] = factors(n, 1, 0, Seq.empty)
 
   private def factors(n: Long, i: Long, prev: Long, acc: Seq[Long]): Seq[Long] =
-    if(n % i == 0)
-      if(n / i == i) acc :+ i
-      else if(n / i == prev) acc
+    if (n % i == 0)
+      if (n / i == i) acc :+ i
+      else if (n / i == prev) acc
       else factors(n, i + 1, i, acc :+ i :+ n / i)
     else factors(n, i + 1, prev, acc)
 
@@ -90,17 +95,16 @@ object AdvancedMath {
   def properDivisors(n: Long): Seq[Long] = properDivisors(n, 1, Seq())
 
   private def properDivisors(n: Long, div: Long, acc: Seq[Long]): Seq[Long] =
-    if(div >= n) acc
-    else if(n % div == 0) properDivisors(n, div + 1, acc :+ div)
+    if (div >= n) acc
+    else if (n % div == 0) properDivisors(n, div + 1, acc :+ div)
     else properDivisors(n, div + 1, acc)
 
   def properDivisors(n: Int): Seq[Int] = properDivisors(n, 1, Seq())
 
   private def properDivisors(n: Int, div: Int, acc: Seq[Int]): Seq[Int] =
-    if(div >= n) acc
-    else if(n % div == 0) properDivisors(n, div + 1, acc :+ div)
+    if (div >= n) acc
+    else if (n % div == 0) properDivisors(n, div + 1, acc :+ div)
     else properDivisors(n, div + 1, acc)
-
 
 
 }
