@@ -94,6 +94,13 @@ object AdvancedMath {
     else if(n % div == 0) properDivisors(n, div + 1, acc :+ div)
     else properDivisors(n, div + 1, acc)
 
+  def properDivisors(n: Int): Seq[Int] = properDivisors(n, 1, Seq())
+
+  private def properDivisors(n: Int, div: Int, acc: Seq[Int]): Seq[Int] =
+    if(div >= n) acc
+    else if(n % div == 0) properDivisors(n, div + 1, acc :+ div)
+    else properDivisors(n, div + 1, acc)
+
 
 
 }

@@ -7,25 +7,26 @@ import euler.utils.AdvancedMath
   */
 object Problem23 extends App {
 
-  def isAbundant(n: Int): Boolean = AdvancedMath.properDivisors(n.toLong).sum > n
+  def isAbundant(n: Int): Boolean = AdvancedMath.properDivisors(n).sum > n
 
   lazy val abundantNumbers = Stream.from(12)
-    .takeWhile(_ < 28123)
+    .takeWhile(_ < 28112)
     .filter(isAbundant)
+    .toList
 
-  def canBeWrittenAsSum(n: Int): Boolean =
-    abundantNumbers.takeWhile(s => s <= n - abundantNumbers.head)
-      .exists(s => abundantNumbers.contains(n - s))
+  lazy val abundantNumbersSums = (for {
+    a <- abundantNumbers
+    b <- abundantNumbers.takeWhile(_ <= a)
+    if a + b <= 28123
+  } yield {
+    a + b
+  }).distinct.sorted
 
-  def notSumablesFrom(n: Int, acc: Seq[Int]): Seq[Int] = {
-    println(n)
-    if(n < 28123)
-      if(canBeWrittenAsSum(n)) notSumablesFrom(n + 1, acc)
-      else notSumablesFrom(n + 1, acc :+ n)
-    else acc
-  }
+  lazy val notSummables = (1 until abundantNumbersSums.head) ++ abundantNumbersSums.zip(abundantNumbersSums.tail).flatMap((a: (Int, Int)) => {
+    (a._1 + 1) until a._2
+  }) ++ ((abundantNumbersSums.last + 1) until 28124 )
 
-  val sum = notSumablesFrom(1, Seq()).sum
+  lazy val sum = notSummables.sum
 
   println(sum)
 }

@@ -1,8 +1,11 @@
 import euler.utils.AdvancedMath
 
-def triangleNumbers(n: BigInt, acc: BigInt): Stream[BigInt] = (n + acc) #:: triangleNumbers(n + 1, n + acc)
+def isAbundant(n: Int): Boolean = AdvancedMath.properDivisors(n).sum > n
 
-val triangleStream = triangleNumbers(1, 0)
-val first = triangleStream.map(AdvancedMath.primeFactors)
+val is12 = isAbundant(12)
 
-first.take(10).last
+val is13 = isAbundant(13)
+val is14 = isAbundant(14)
+val is15 = isAbundant(15)
+val is16 = isAbundant(16)
+val is24 = isAbundant(24)
