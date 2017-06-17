@@ -35,25 +35,6 @@ object AdvancedMath {
     if (n == 1) acc
     else factorial(n - 1, acc * n)
 
-  /* Primes */
-
-  private def isPrime(n: BigInt, previousPrimes: Set[BigInt]) = !previousPrimes.exists(p => n % p == 0)
-
-  private def isPrime(n: Long, previousPrimes: Set[Long]) = !previousPrimes.exists(p => n % p == 0)
-
-  private def primes(from: BigInt, previousPrimes: Set[BigInt]): Stream[BigInt] =
-    if (isPrime(from, previousPrimes)) from #:: primes(from + 2, previousPrimes + from)
-    else primes(from + 2, previousPrimes)
-
-  val primes: Stream[BigInt] = 2 #:: primes(3, Set(2))
-
-  def primesUntil(n: Long): Stream[Long] = 2 #:: primesUntil(3, n, Set(2))
-
-  private def primesUntil(from: Long, n: Long, previousPrimes: Set[Long]): Stream[Long] =
-    if (from > n) Stream.empty[Long]
-    else if (isPrime(from, previousPrimes)) from #:: primesUntil(from + 2, n, previousPrimes + from)
-    else primesUntil(from + 2, n, previousPrimes)
-
   /* Factors */
   def factors(n: Long): Seq[Long] = factors(n, 1, 0, Seq.empty)
 

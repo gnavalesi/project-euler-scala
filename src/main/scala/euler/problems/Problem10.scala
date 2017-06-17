@@ -1,12 +1,12 @@
 package euler.problems
 
-import euler.utils.AdvancedMath
+import euler.utils.Primes
 
 /**
   * @author guido
   */
 object Problem10 extends App {
-  val sum = AdvancedMath.primesUntil(2000000).sum
+  val sum = Primes.long.stream.takeWhile(_ <= 2000000).sum
 
   println(sum)
 }
