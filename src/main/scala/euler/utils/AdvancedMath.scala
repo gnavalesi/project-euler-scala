@@ -87,5 +87,7 @@ object AdvancedMath {
     else if (n % div == 0) properDivisors(n, div + 1, acc :+ div)
     else properDivisors(n, div + 1, acc)
 
+  def properDivisorsFrom(n: Int, from: Int): Seq[Int] = properDivisors(n, from, Seq())
+
 
 }
