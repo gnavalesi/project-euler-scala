@@ -32,7 +32,7 @@ object AdvancedMath {
   def factorial(n: BigInt): BigInt = factorial(n, 1)
 
   private def factorial(n: BigInt, acc: BigInt): BigInt =
-    if (n == 1) acc
+    if (n == 1 || n == 0) acc
     else factorial(n - 1, acc * n)
 
   /* Factors */
