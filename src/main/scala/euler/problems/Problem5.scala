@@ -1,22 +1,19 @@
 package euler.problems
 
-import euler.utils.AdvancedMath
+import euler.utils.Problem
+import euler.utils.AdvancedMath.primeFactors
 
 /**
   * @author guido
   */
-object Problem5 extends App {
+object Problem5 extends Problem {
 
-  private val factors = (BigInt(1) until BigInt(20)).flatMap(AdvancedMath.primeFactors)
-
-  private def getMaxFactors(acc: Map[BigInt, BigInt], factor: (BigInt, BigInt)): Map[BigInt, BigInt] = {
-    if(acc.getOrElse(factor._1, BigInt(0)) < factor._2) acc.updated(factor._1, factor._2)
-    else acc
-  }
-
-  private val maxFactors: Map[BigInt, BigInt] = factors.foldLeft(Map.empty[BigInt, BigInt])(getMaxFactors)
-
-  val max = maxFactors.foldLeft(BigInt(1))((acc: BigInt, factor: (BigInt, BigInt)) => acc * factor._1.^(factor._2))
-
-  println(max)
+  def solution(): Int = (1 until 20)
+    .flatMap(n => primeFactors(BigInt(n)))
+    .groupBy(_._1)
+    .mapValues(_.maxBy(_._2))
+    .mapValues(_._2)
+    .map(a => a._1 pow a._2.toInt)
+    .product
+    .toInt
 }
