@@ -1,10 +1,10 @@
 package euler.problems
 
-import euler.utils.Primes
+import euler.utils.{Primes, Problem}
 
 /**
   * @author guido
   */
-object Problem7 extends App {
-  println(Primes.int.stream.drop(10000).head)
+object Problem7 extends Problem {
+  def solution(): Int = Primes.int.stream.drop(10000).head
 }

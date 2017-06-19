@@ -1,10 +1,12 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem8 extends App {
-  val num =
+object Problem8 extends Problem {
+  private val num =
     """73167176531330624919225119674426574742355349194934
   96983520312774506326239578318016984801869478851843
   85861560789112949495459501737958331952853208805511
@@ -26,15 +28,16 @@ object Problem8 extends App {
   05886116467109405077541002256983155200055935729725
   71636269561882670428252483600823257530420752963450""".replaceAll("\\s*", "")
 
-  def getProducts(iterations: Int, numbers: Seq[Long], acc: Seq[Long]): Seq[Long] = {
+  private def getProducts(iterations: Int, numbers: Seq[Long], acc: Seq[Long]): Seq[Long] = {
     if(iterations == 0) acc
     else {
       getProducts(iterations - 1, numbers.tail, numbers.zip(acc).foldLeft(Seq.empty[Long])((acc, p) => acc :+ (p._1 * p._2)))
     }
   }
 
-  val nums = num.split("").map(_.toLong)
-  val prods = getProducts(13, nums, (0 until 1000).map(_ => 1L))
-  val max = prods.max
-  println(max)
+  private val nums = num.split("").map(_.toLong)
+  private val prods = getProducts(13, nums, (0 until 1000).map(_ => 1L))
+  private val max = prods.max
+
+  def solution(): Long = max
 }
