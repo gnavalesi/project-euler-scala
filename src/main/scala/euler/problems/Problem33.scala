@@ -1,46 +1,63 @@
 package euler.problems
 
-import euler.utils.{AdvancedMath, Problem}
+import euler.utils.{Primes, Problem}
 
 /**
   * @author guido
   */
 object Problem33 extends Problem {
-  def sharedDigits(a: Int, b: Int): Seq[Char] = a.toString.filter(b.toString.contains(_)).distinct
 
-  def sameFraction(n1: Int, d1: Int, n2: Int, d2: Int): Boolean = n1 * d2 == n2 * d1
+  private case class Fraction(numerator: Int, denominator: Int)
 
-  def simplify(n: Int, d: Int): (Int, Int) = {
-    val nFactors = (for {
-      f <- AdvancedMath.primeFactors(n)
-    } yield f._1.toInt -> f._2.toInt).toMap
+  private def fractionsStream: Stream[Fraction] =
+    Stream.from(10)
+      .takeWhile(_ < 100)
+      .filter(_ % 10 != 0)
+      .flatMap(denominator =>
+        Stream.from(10)
+          .takeWhile(numerator => numerator < denominator)
+          .filter(_ % 10 != 0)
+          .map(numerator => Fraction(numerator, denominator)))
 
-    val rFactors = (for {
-      f <- AdvancedMath.primeFactors(d)
-    } yield f._1.toInt -> {
-      if (nFactors.isDefinedAt(f._1.toInt)) Math.abs(f._2.toInt - nFactors(f._1.toInt))
-      else f._2.toInt
-    }).filter(p => p._2 > 0)
+  private def findSharedDigits(fraction: Fraction): String =
+    fraction.numerator.toString.intersect(fraction.denominator.toString)
 
-    val denominator = rFactors.map(p => Math.pow(p._1, p._2)).product.toInt
+  private def sameFraction(fraction1: Fraction, fraction2: Fraction): Boolean =
+    fraction1.numerator * fraction2.denominator == fraction2.numerator * fraction1.denominator
 
-    (denominator * n / d, denominator)
+  private def wrongSimplify(fraction: Fraction, sharedDigit: Char): Fraction =
+    Fraction(
+      fraction.numerator.toString.replaceFirst("" + sharedDigit, "").toInt,
+      fraction.denominator.toString.replaceFirst("" + sharedDigit, "").toInt)
+
+  private def wrongSimplify(fraction: Fraction, sharedDigits: String): Seq[Fraction] =
+    sharedDigits.toCharArray.map(sharedDigit => wrongSimplify(fraction, sharedDigit))
+
+  private def simplify(fraction: Fraction): Fraction = {
+    Primes.int.stream
+      .takeWhile(prime => prime * prime <= fraction.numerator)
+      .foldLeft(fraction)((accumulator: Fraction, prime: Int) => {
+        val exponent = Stream.from(1)
+          .dropWhile(exponent => accumulator.numerator % Math.pow(prime, exponent) == 0
+            && accumulator.denominator % Math.pow(prime, exponent) == 0)
+          .head - 1
+        if (accumulator.numerator % prime == 0)
+          Fraction((accumulator.numerator / Math.pow(prime, exponent)).toInt, (accumulator.denominator / Math.pow(prime, exponent)).toInt)
+        else accumulator
+      })
   }
 
+  private lazy val fractions = fractionsStream
+    .map(fraction => (fraction, findSharedDigits(fraction)))
+    .filter(pair => pair._2.nonEmpty)
+    .map(pair => (pair._1, wrongSimplify(pair._1, pair._2)))
+    .flatMap(pair => pair._2.map(simplification => (pair._1, simplification)))
+    .filter(pair => sameFraction(pair._1, pair._2))
+    .map(pair => pair._1)
 
-  private lazy val fractions = for {
-    d <- 10 until 100
-    n <- 10 until d
-    if n % 10 != 0 || d % 10 != 0
-    sds = sharedDigits(n, d)
-    sd <- sds
-    nn = n.toString.replaceFirst("" + sd, "").toInt
-    nd = d.toString.replaceFirst("" + sd, "").toInt
-    if nd > 0
-    if sameFraction(n, d, nn, nd)
-  } yield (n, d)
+  private lazy val product = fractions.reduce(
+    (fraction1, fraction2) => Fraction(fraction1.numerator * fraction2.numerator,
+      fraction1.denominator * fraction2.denominator))
 
-  private lazy val product = fractions.reduce((f1, f2) => (f1._1 * f2._1, f1._2 * f2._2))
-
-  override def solution(): Any = simplify(product._1, product._2)._2
+  override def solution(): Any = simplify(product).denominator
 }

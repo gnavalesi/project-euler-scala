@@ -16,7 +16,6 @@ object Problem19 extends Problem {
   case class Date(day: Int, month: Int, year: Int, weekday: Int)
 
   def dateStream(days: Stream[Int], months: Stream[Int], years: Stream[Int], weekdays: Stream[Int]): Stream[Date] = {
-    println(Date(days.head, months.head, years.head, weekdays.head))
     Date(days.head, months.head, years.head, weekdays.head) #:: {
       if (days.tail.isEmpty) {
         if (months.head == 12) {
