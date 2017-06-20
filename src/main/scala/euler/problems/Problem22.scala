@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem22 extends App {
+object Problem22 extends Problem {
   val names = Seq("MARY", "PATRICIA", "LINDA", "BARBARA", "ELIZABETH", "JENNIFER", "MARIA", "SUSAN", "MARGARET",
     "DOROTHY", "LISA", "NANCY", "KAREN", "BETTY", "HELEN", "SANDRA", "DONNA", "CAROL", "RUTH", "SHARON", "MICHELLE",
     "LAURA", "SARAH", "KIMBERLY", "DEBORAH", "JESSICA", "SHIRLEY", "CYNTHIA", "ANGELA", "MELISSA", "BRENDA", "AMY",
@@ -501,7 +503,5 @@ object Problem22 extends App {
     }
   }
 
-  val total = names.sorted.zip(1 until names.length + 1).map(a => value(a._1) * a._2).sum
-
-  println(total)
+  def solution(): Int = names.sorted.zip(1 until names.length + 1).map(a => value(a._1) * a._2).sum
 }

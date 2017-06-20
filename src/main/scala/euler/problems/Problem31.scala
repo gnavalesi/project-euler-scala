@@ -1,12 +1,14 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem31 extends App {
+object Problem31 extends Problem {
   val total = 200
 
-  val sum = (for {
+  private lazy val sum = (for {
     a <- 0 until total + 1
     b <- 0 until (total - a) / 2 + 1
     c <- 0 until (total - a - b * 2) / 5 + 1
@@ -18,5 +20,5 @@ object Problem31 extends App {
     if a * 1 + b * 2 + c * 5 + d * 10 + e * 20 + f * 50 + g * 100 + h * 200 == total
   } yield 1).sum
 
-  println(sum)
+  override def solution(): Any = sum
 }

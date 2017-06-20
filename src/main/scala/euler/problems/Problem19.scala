@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem19 extends App {
+object Problem19 extends Problem {
   def weekdayStream: Stream[Int] = 1 #:: 2 #:: 3 #:: 4 #:: 5 #:: 6 #:: 7 #:: weekdayStream
 
   def monthStream: Stream[Int] = 1 #:: 2 #:: 3 #:: 4 #:: 5 #:: 6 #:: 7 #:: 8 #:: 9 #:: 10 #:: 11 #:: 12 #:: monthStream
@@ -41,15 +43,13 @@ object Problem19 extends App {
   }
 
 
-  val count = dateStream((1 until daysPerMonth(1) + 1).toStream, monthStream, Stream.from(1900), weekdayStream)
+  private val count = dateStream((1 until daysPerMonth(1) + 1).toStream, monthStream, Stream.from(1900), weekdayStream)
     .dropWhile(_.year < 1901)
     .takeWhile(_.year < 2001)
-    .count(d => {
-      d match {
-        case Date(1, _, _, 7) => true
-        case _ => false
-      }
-    })
+    .count {
+      case Date(1, _, _, 7) => true
+      case _ => false
+    }
 
-  println(count)
+  def solution(): Int = count
 }

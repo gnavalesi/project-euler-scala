@@ -1,11 +1,11 @@
 package euler.problems
 
-import euler.utils.AdvancedMath
+import euler.utils.{AdvancedMath, Problem}
 
 /**
   * @author guido
   */
-object Problem33 extends App {
+object Problem33 extends Problem {
   def sharedDigits(a: Int, b: Int): Seq[Char] = a.toString.filter(b.toString.contains(_)).distinct
 
   def sameFraction(n1: Int, d1: Int, n2: Int, d2: Int): Boolean = n1 * d2 == n2 * d1
@@ -28,7 +28,7 @@ object Problem33 extends App {
   }
 
 
-  val fractions = for {
+  private lazy val fractions = for {
     d <- 10 until 100
     n <- 10 until d
     if n % 10 != 0 || d % 10 != 0
@@ -40,9 +40,7 @@ object Problem33 extends App {
     if sameFraction(n, d, nn, nd)
   } yield (n, d)
 
-  val product = fractions.reduce((f1, f2) => (f1._1 * f2._1, f1._2 * f2._2))
+  private lazy val product = fractions.reduce((f1, f2) => (f1._1 * f2._1, f1._2 * f2._2))
 
-  println(simplify(product._1, product._2))
-
-
+  override def solution(): Any = simplify(product._1, product._2)._2
 }

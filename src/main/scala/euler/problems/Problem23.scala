@@ -1,11 +1,11 @@
 package euler.problems
 
-import euler.utils.AdvancedMath
+import euler.utils.{AdvancedMath, Problem}
 
 /**
   * @author guido
   */
-object Problem23 extends App {
+object Problem23 extends Problem {
 
   def isAbundant(n: Int): Boolean = AdvancedMath.properDivisors(n).sum > n
 
@@ -26,7 +26,5 @@ object Problem23 extends App {
     (a._1 + 1) until a._2
   }) ++ ((abundantNumbersSums.last + 1) until 28124 )
 
-  lazy val sum = notSummables.sum
-
-  println(sum)
+  def solution(): Int = notSummables.sum
 }

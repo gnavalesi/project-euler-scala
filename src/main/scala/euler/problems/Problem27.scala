@@ -2,12 +2,12 @@ package euler.problems
 
 import java.lang.Math._
 
-import euler.utils.Primes
+import euler.utils.{Primes, Problem}
 
 /**
   * @author guido
   */
-object Problem27 extends App {
+object Problem27 extends Problem {
   def evaluate(n: Int, a: Int, b: Int): Int = pow(n, 2).toInt + a * n + b
 
   def consecutivePrimes(a: Int, b: Int, n: Int, acc: Seq[Int]): Seq[Int] = {
@@ -28,18 +28,16 @@ object Problem27 extends App {
     else consecutivePrimes(a, b, 1, Seq.empty[Int])
   }
 
-  val evaluations = for {
+  private lazy val evaluations = for {
     a <- Stream.from(-999).takeWhile(_ < 1000)
     // b is the first result since n == 0, so b must be prime
     b <- Primes.int.stream.takeWhile(_ < 1001)
     cp = consecutivePrimes(a, b.toInt) if cp.nonEmpty
   } yield {
-    println(a, b, cp.length)
     (a * b, cp.length)
   }
 
-  val max = evaluations.maxBy(_._2)
+  private lazy val max = evaluations.maxBy(_._2)
 
-  println(max)
-
+  override def solution(): Any = max._1
 }

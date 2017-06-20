@@ -10,8 +10,4 @@ object Problem15 extends Problem {
   private val height = 20
 
   def solution(): Long = AdvancedMath.binomial(height + width, height)
-
-
-
-  println(solution())
 }

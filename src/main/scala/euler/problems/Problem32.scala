@@ -1,11 +1,11 @@
 package euler.problems
 
-import euler.utils.AdvancedMath
+import euler.utils.{AdvancedMath, Problem}
 
 /**
   * @author guido
   */
-object Problem32 extends App {
+object Problem32 extends Problem {
   def isPandigital(n: Int): Boolean = isPandigital(n.toString)
 
   private def isPandigital(str: String): Boolean = isPandigital(str, str.split(""))
@@ -17,7 +17,7 @@ object Problem32 extends App {
   private def hasUniqueChars(str: String): Boolean =
     str.length == str.split("").distinct.length
 
-  val pan = for {
+  private lazy val pan = for {
     n <- 1234 until 100000
     if hasUniqueChars(n.toString) && AdvancedMath.properDivisorsFrom(n, 2).exists(d => {
       val m = n / d
@@ -26,5 +26,5 @@ object Problem32 extends App {
     })
   } yield n
 
-  println(pan.sum)
+  override def solution(): Any = pan.sum
 }

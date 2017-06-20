@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem18 extends App {
+object Problem18 extends Problem {
   type Triangle = List[List[Int]]
 
   val triangle = List[List[Int]](
@@ -41,5 +43,5 @@ object Problem18 extends App {
     case head :: neck :: tail => largestSum(sum(diminish(head), neck) :: tail)
   }
 
-  println(largestSum())
+  def solution(): Int = largestSum()
 }

@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem26 extends App {
+object Problem26 extends Problem {
 
   case class Result(result: Int, remainder: Int)
 
@@ -27,12 +29,12 @@ object Problem26 extends App {
     }
   }
 
-  val cycles: Seq[(Int, Int)] = for {
+  lazy private val cycles: Seq[(Int, Int)] = for {
     n <- 2 until 1000 if 1000000000 % n != 0
     cx = getRecurringCycle(n) if cx.nonEmpty
   } yield (n, cx.length)
 
-  val max: (Int, Int) = cycles.maxBy(_._2)
+  lazy private val max: (Int, Int) = cycles.maxBy(_._2)
 
-  println(max._1)
+  override def solution(): Any = max._1
 }

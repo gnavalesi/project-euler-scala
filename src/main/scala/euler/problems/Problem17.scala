@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem17 extends App {
+object Problem17 extends Problem {
   val units: Map[Int, Int] = Map(0 -> 0, 1 -> 3, 2 -> 3, 3 -> 5, 4 -> 4, 5 -> 4, 6 -> 3, 7 -> 5, 8 -> 5, 9 -> 4)
 
   val tens: Map[Int, Int] = Map(10 -> 3, 11 -> 6, 12 -> 6, 13 -> 8, 14 -> 8, 15 -> 7, 16 -> 7, 17 -> 9, 18 -> 8,
@@ -26,7 +28,5 @@ object Problem17 extends App {
     case 1000 => units(1) + thousand
   }
 
-  val sum = (1 until 1001).map(value).sum
-
-  println(sum)
+  def solution(): Int = (1 until 1001).map(value).sum
 }
