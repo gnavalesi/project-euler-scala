@@ -45,31 +45,27 @@ object AdvancedMath {
       else factors(n, i + 1, i, acc :+ i :+ n / i)
     else factors(n, i + 1, prev, acc)
 
+  def factorsNew(n: Long): Seq[Long] = (1L until n + 1).filter(n % _ == 0)
 
   /* Prime Factors */
 
-  type PrimeFactor = (BigInt, BigInt)
+  def primeFactors(n: BigInt): Seq[(BigInt, BigInt)] =
+    Primes.bigInt.stream
+      .takeWhile(p => p <= n)
+      .filter(p => n % p == 0)
+      .map(p => (p, BigInt(Stream.from(1).dropWhile(e => n % (p pow e) == 0).head - 1)))
 
-  def primeFactors(n: BigInt): Seq[PrimeFactor] = primeFactors(n, 2, Seq())
+  def primeFactors(n: Int): Seq[(Int, Int)] =
+    Primes.int.stream
+      .takeWhile(p => p <= n)
+      .filter(p => n % p == 0)
+      .map(p => (p, Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1))
 
-  private def primeFactors(n: BigInt, current: BigInt, result: Seq[PrimeFactor]): Seq[PrimeFactor] = {
-    def stream(v: BigInt): Stream[BigInt] = v #:: stream(v + 1)
-
-    stream(current).takeWhile(i => i <= n.^(2)).find(i => {
-      n % i == 0
-    }) match {
-      case Some(i) =>
-        var res = n
-        var pow = BigInt(0)
-        do {
-          res = res / i
-          pow = pow + 1
-        } while (res % i == 0)
-        primeFactors(res, i + 1, result :+ (i, pow))
-
-      case None => result :+ (n, BigInt(1))
-    }
-  }
+  def primeFactors(n: Long): Seq[(Long, Long)] =
+    Primes.long.stream
+      .takeWhile(p => p <= n)
+      .filter(p => n % p == 0)
+      .map(p => (p, (Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1).toLong))
 
 //  def primeFactors(n: Int): Seq[(Int, Int)] = (for {
 //    p <- Primes.int.stream.takeWhile(i => i <= n)

@@ -9,11 +9,11 @@ import euler.utils.AdvancedMath.primeFactors
 object Problem5 extends Problem {
 
   def solution(): Int = (1 until 20)
-    .flatMap(n => primeFactors(BigInt(n)))
+    .flatMap(n => primeFactors(n))
     .groupBy(_._1)
     .mapValues(_.maxBy(_._2))
     .mapValues(_._2)
-    .map(a => a._1 pow a._2.toInt)
+    .map(a => Math.pow(a._1, a._2.toInt))
     .product
     .toInt
 }

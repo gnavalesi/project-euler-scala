@@ -1,9 +1,11 @@
 package euler.problems
 
+import euler.utils.Problem
+
 /**
   * @author guido
   */
-object Problem11 extends App {
+object Problem11 extends Problem {
   val gridString =
     s"""08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
         49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -53,6 +55,7 @@ object Problem11 extends App {
 
   val stream = gridMultiplesStream(0, 0)
   val max = stream.max
-  println(max)
+
+  def solution(): Int = max
 
 }
