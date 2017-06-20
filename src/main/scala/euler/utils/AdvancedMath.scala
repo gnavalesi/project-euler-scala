@@ -35,6 +35,18 @@ object AdvancedMath {
     if (n == 1 || n == 0) acc
     else factorial(n - 1, acc * n)
 
+  def factorial(n: Long): Long = factorial(n, 1)
+
+  private def factorial(n: Long, acc: Long): Long =
+    if (n == 1 || n == 0) acc
+    else factorial(n - 1, acc * n)
+
+  def factorial(n: Int): Int = factorial(n, 1)
+
+  private def factorial(n: Int, acc: Int): Int =
+    if (n == 1 || n == 0) acc
+    else factorial(n - 1, acc * n)
+
   /* Factors */
   def factors(n: Long): Seq[Long] = factors(n, 1, 0, Seq.empty)
 
