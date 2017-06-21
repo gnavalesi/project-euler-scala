@@ -79,14 +79,6 @@ object AdvancedMath {
       .filter(p => n % p == 0)
       .map(p => (p, (Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1).toLong))
 
-//  def primeFactors(n: Int): Seq[(Int, Int)] = (for {
-//    p <- Primes.int.stream.takeWhile(i => i <= n)
-//  } yield (p, Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1)).filter((a: (Int, Int)) => a._2 > 0)
-//
-//  def primeFactors(n: Long): Seq[(Int, Int)] = (for {
-//    p <- Primes.int.stream.takeWhile(i => i <= n)
-//  } yield (p, Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1)).filter((a: (Int, Int)) => a._2 > 0)
-
   /* Divisors */
 
   def properDivisors(n: Long): Seq[Long] = properDivisors(n, 1, Seq())

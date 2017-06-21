@@ -5,7 +5,7 @@ import euler.utils.Problem
 /**
   * @author guido
   */
-object Problem36 extends Problem with App {
+object Problem36 extends Problem {
   private def isPalindrome(str: String) = str.substring(0, str.length / 2) == str.substring((str.length + str.length % 2) / 2).reverse
 
   private def toBinary(n: Int): String = toBinary(n, "")
