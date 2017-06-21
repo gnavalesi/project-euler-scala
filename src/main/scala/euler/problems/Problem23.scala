@@ -7,11 +7,8 @@ import euler.utils.{AdvancedMath, Problem}
   */
 object Problem23 extends Problem {
 
-  private def isAbundant(n: Int): Boolean = {
-    val pd = AdvancedMath.properDivisors(n)
-    println(n, pd)
-    pd.sum > n
-  }
+  private def isAbundant(n: Int): Boolean =
+    AdvancedMath.properDivisors(n).sum > n
 
   private lazy val abundantNumbers = Stream.from(12)
     .takeWhile(_ < 28112)
@@ -26,9 +23,10 @@ object Problem23 extends Problem {
     a + b
   }).distinct.sorted
 
-  private lazy val notSummables = (1 until abundantNumbersSums.head) ++ abundantNumbersSums.zip(abundantNumbersSums.tail).flatMap((a: (Int, Int)) => {
+  private lazy val notSummables = (1 until abundantNumbersSums.head) ++ abundantNumbersSums.zip(
+    abundantNumbersSums.tail).flatMap((a: (Int, Int)) => {
     (a._1 + 1) until a._2
-  }) ++ ((abundantNumbersSums.last + 1) until 28124 )
+  }) ++ ((abundantNumbersSums.last + 1) until 28124)
 
   def solution(): Int = notSummables.sum
 }
