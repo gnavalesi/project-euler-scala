@@ -10,9 +10,7 @@ object Problem34 extends Problem {
 
   def isSumOfDigitFactorials(n: Int): Boolean = n == digits(n).map(d => AdvancedMath.factorial(d)).sum
 
-  private lazy val max = 362880 // 9!
-
-  private lazy val numbers = Stream.from(10).takeWhile(n => n <= (Math.log10(n).ceil.toInt + 1) * max).filter(isSumOfDigitFactorials)
+  private lazy val numbers = Stream.from(10).takeWhile(n => n <= 2540160L).filter(isSumOfDigitFactorials)
 
   override def solution(): Any = numbers.sum
 }
