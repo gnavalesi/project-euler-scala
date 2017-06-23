@@ -20,7 +20,7 @@ import euler.utils.Problem
   * with (1,2, ... , n) where n > 1?
   *
   */
-object Problem38 extends Problem with App {
+object Problem38 extends Problem {
   private def isPandigital(n: Long): Boolean = n.toString.replace("0", "").distinct.length == 9
 
   private def concatMultiples(multiples: Stream[String]): Long = concatMultiples(multiples, "")
