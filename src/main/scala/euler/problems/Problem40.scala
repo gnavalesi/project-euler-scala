@@ -15,7 +15,7 @@ import euler.utils.Problem
   *
   * d_1 × d_10 × d_100 × d_1000 × d_10000 × d_100000 × d_1000000
   */
-object Problem40 extends Problem with App {
+object Problem40 extends Problem {
 
   private val digitStream: Stream[Int] = digitStreamRec(1)
 
