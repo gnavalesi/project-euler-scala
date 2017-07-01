@@ -5,7 +5,7 @@ import euler.utils.{Primes, Problem}
 /**
   * @author guido
   */
-object Problem41 extends Problem with App {
+object Problem41 extends Problem {
 
   private def pandigitalNumbers(n: Int): Stream[Int] =
     (1 until (n + 1)).permutations.map(_.mkString.toInt).toStream #:::
@@ -14,6 +14,4 @@ object Problem41 extends Problem with App {
   private def pandigitalNumbers(): Stream[Int] =  pandigitalNumbers(9)
 
   override def solution(): Int = pandigitalNumbers().sorted.reverse.dropWhile(!Primes.int.isPrime(_)).head
-
-  println(solution())
 }
