@@ -43,6 +43,4 @@ object Problem47 extends Problem with App {
     })
     .head.head.n
 
-  println(solution())
-
 }

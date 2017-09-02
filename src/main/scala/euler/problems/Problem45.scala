@@ -35,9 +35,5 @@ object Problem45 extends Problem with App {
 
   private def triangles: Stream[Long] = longStream(286L).map(triangle)
 
-  override def solution(): Any = triangles.dropWhile(t => {
-    println(t, isPentagonal(t), isHexagonal(t))
-
-    !isPentagonal(t) || !isHexagonal(t)
-  }).head
+  override def solution(): Any = triangles.dropWhile(t => !isPentagonal(t) || !isHexagonal(t)).head
 }

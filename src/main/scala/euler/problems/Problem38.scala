@@ -42,6 +42,4 @@ object Problem38 extends Problem {
       )
     .filter(isPandigital)
     .max
-
-  println(solution())
 }

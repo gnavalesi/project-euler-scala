@@ -34,6 +34,4 @@ object Problem37 extends Problem with App {
     }
 
   def solution(): Long = rightTruncatablePrimes().filter(isLeftTruncatable).sum
-
-  println(solution())
 }
