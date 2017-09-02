@@ -17,6 +17,12 @@ object Primes {
     val stream: Stream[Long] = primesStream
 
     def stream(from: Long): Stream[Long] = primesStreamRec(from)
+
+    def primeFactors(n: Long): Seq[(Long, Long)] =
+      stream
+        .takeWhile(p => p <= n)
+        .filter(p => n % p == 0)
+        .map(p => (p, (Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1).toLong))
   }
 
   object bigInt {
@@ -28,6 +34,12 @@ object Primes {
     def isPrime(n: BigInt): Boolean = n != 1 && stream.takeWhile(p => p * p <= n).forall(p => n % p != 0)
 
     val stream: Stream[BigInt] = primesStream
+
+    def primeFactors(n: BigInt): Seq[(BigInt, BigInt)] =
+      stream
+        .takeWhile(p => p <= n)
+        .filter(p => n % p == 0)
+        .map(p => (p, BigInt(Stream.from(1).dropWhile(e => n % (p pow e) == 0).head - 1)))
   }
 
   object int {
@@ -39,6 +51,12 @@ object Primes {
     def isPrime(n: Int): Boolean = n != 1 && stream.takeWhile(p => p * p <= n).forall(p => n % p != 0)
 
     val stream: Stream[Int] = primesStream
+
+    def primeFactors(n: Int): Seq[(Int, Int)] =
+      stream
+        .takeWhile(p => p <= n)
+        .filter(p => n % p == 0)
+        .map(p => (p, Stream.from(1).dropWhile(e => n % Math.pow(p, e) == 0).head - 1))
   }
 
 }
