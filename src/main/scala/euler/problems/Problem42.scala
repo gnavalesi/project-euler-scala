@@ -7,10 +7,10 @@ import scala.io.Source
 /**
   * @author guido
   */
-object Problem42 extends Problem with App {
-  private val letters = Seq("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+object Problem42 extends Problem {
+  private lazy val letters = Seq("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
-  private val triangleNumbers = triangleNumbersFunc(1)
+  private lazy val triangleNumbers = triangleNumbersFunc(1)
 
   private def triangleNumbersFunc(n: Int): Stream[Int] = (n * (n + 1) / 2) #:: triangleNumbersFunc(n + 1)
 

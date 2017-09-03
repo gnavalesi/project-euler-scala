@@ -28,7 +28,7 @@ object Problem47 extends Problem with App {
   }
 
   private def tuples[T](ns: Stream[T]): Stream[Seq[T]] = {
-    val previous = Seq(ns.head, ns.tail.head, ns.tail.tail.head, ns.tail.tail.tail.head)
+    val previous = ns.take(4).toSeq
 
     previous #:: tuples(ns.drop(4), previous)
   }
