@@ -28,6 +28,4 @@ object Problem48 extends Problem with App {
       .map(pfs => pfs.reduce((a: BigInt, b: BigInt) => (a * b).mod(BigInt(10000000000L))))
       .reduce((a: BigInt, b: BigInt) => (a + b) % 10000000000L)
 
-  println(solution())
-
 }
