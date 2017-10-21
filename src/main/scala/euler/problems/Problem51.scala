@@ -50,6 +50,4 @@ object Problem51 extends Problem with App {
     .find(pvf => pvf.length == 8)
     .get
     .head
-
-  println(solution())
 }
