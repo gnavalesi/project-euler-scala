@@ -7,16 +7,16 @@ object AdvancedMath {
 
   /* Binomial number */
 
-  def binomial(n: Long, k: Long): Long = pascalTriangle(n)(n - k toInt)(k toInt)
+  def binomial(n: Int, k: Int): Long = pascalTriangle(n)(n - k)(k)
 
-  private def pascalTriangle(n: Long): Array[Array[Long]] = {
-    val res = new Array[Array[Long]](n + 1 toInt)
-    for (cn <- 0L until n) {
-      res(cn toInt) = new Array[Long](n + 1L - cn toInt)
-      for (ck <- 0L until (n + 1L - cn)) {
-        res(cn toInt)(ck toInt) =
-          if (cn == 0L || ck == 0L) 1L
-          else res(cn - 1L toInt)(ck toInt) + res(cn toInt)(ck - 1L toInt)
+  private def pascalTriangle(n: Int): Array[Array[Long]] = {
+    val res = new Array[Array[Long]](n + 1)
+    for (row <- 0 until n + 1) {
+      res(row) = new Array[Long](n + 1 - row)
+      for (column <- 0 until (n + 1 - row)) {
+        res(row)(column) =
+          if (row == 0 || column == 0) 1
+          else res(row - 1)(column) + res(row)(column - 1)
       }
     }
     res
