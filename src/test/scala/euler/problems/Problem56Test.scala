@@ -1,6 +1,6 @@
 package euler.problems
 
-import euler.problems.Problem55._
+import euler.problems.Problem56._
 import org.scalatest.FlatSpec
 
 /**
